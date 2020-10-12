@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/react@16.12.0/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      class Reservation extends React.Component {
+        constructor(props) {
+          super(props)
+          this.state = {
+            fruit: 'lime',
+            isGoing: true,
+            numberOfGuests: 2,
+          }
+          this.handlerSubmit = this.handlerSubmit.bind(this)
+          this.handleInputChange = this.handleInputChange.bind(this)
+        }
+
+        handleInputChange(event) {
+          const target = event.target
+          console.log('类型', target.type)
+          const value =
+            target.type === 'checkbox' ? target.checked : target.value
+          const name = target.name
+
+          this.setState({
+            [name]: value,
+          })
+        }
+        handlerSubmit(e) {
+          console.log('提交的数据是', this.state)
+          e.preventDefault()
+        }
+
+        render() {
+          return (
+            <div>
+              <form onSubmit={this.handlerSubmit}>
+                <label>
+                  参与:
+                  <input
+                    name="isGoing"
+                    type="checkbox"
+                    checked={this.state.isGoing}
+                    onChange={this.handleInputChange}
+                  />
+                </label>
+                <br />
+                <label>
+                  来宾人数:
+                  <input
+                    name="numberOfGuests"
+                    type="number"
+                    value={this.state.numberOfGuests}
+                    onChange={this.handleInputChange}
+                  />
+                </label>
+                <br />
+                <label>
+                  选择水果：单选
+                  <select
+                    value={this.state.fruit}
+                    name="fruit"
+                    onChange={this.handleInputChange}>
+                    <option value="grapefruit">葡萄柚</option>
+                    <option value="lime">酸橙</option>
+                    <option value="coconut">椰子</option>
+                    <option value="mango">芒果</option>
+                  </select>
+                </label>
+                <input type="submit" value="提交" />
+              </form>
+              <div>
+                处理多个输入:当需要处理多个 input 元素时，我们可以给每个元素添加
+                name 属性，并让处理函数根据 event.target.name
+                的值选择要执行的操作。<br/>
+                可根据event.target.type来判断输入框类型
+              </div>
+            </div>
+          )
+        }
+      }
+      ReactDOM.render(
+        <div>
+          <Reservation />
+        </div>,
+        document.getElementById('root'),
+      )
+    </script>
+  </body>
+</html>

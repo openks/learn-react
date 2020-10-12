@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>背景颜色和背景图片填充范围</title>
+    <style>
+      .box {
+        width: 200px;
+        height: 200px;
+        background: red;
+        padding: 20px;
+        border: 10px dashed blue;
+        margin: 20px;
+      }
+      .box1 {
+        background-image: url(https://upload-images.jianshu.io/upload_images/1835449-233002741024065c.jpg);
+      }
+    </style>
+  </head>
+  <body>
+    <h1>背景颜色和背景图片填充范围</h1>
+    <div>
+      CSS 规范指出，边框绘制在“元素的背景之上”。这很重要，因为有些边框是“间断的”（例如，点线边框或虚线框），元素的背景应当出现在边框的可见部分之间。<br />
+      CSS2 指出背景只延伸到内边距，而不是边框。<br />
+      后来 CSS2.1 进行了更正：元素的背景是内容、内边距和边框区的背景。<br />
+      大多数浏览器都遵循 CSS2.1 定义，不过一些较老的浏览器可能会有不同的表现。
+    </div>
+    <div class="box"></div>
+    <div class="box box1"></div>
+  </body>
+</html>

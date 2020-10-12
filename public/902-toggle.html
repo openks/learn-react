@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/react@16.12.0/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      class Toggle extends React.Component {
+        constructor(props) {
+          super(props)
+          this.state = { isToggleOn: false, age: 10 }
+          this.handlerClick = this.handlerClick.bind(this)
+        }
+        handlerClick() {
+          console.log('构造函数绑定this', this)
+          this.setState((state) => {
+            console.log('入参state', state)
+            return { isToggleOn: !state.isToggleOn }
+          })
+        }
+        // handleClick2 = () => {
+        //   // 此语法确保 `handleClick` 内的 `this` 已被绑定。
+        //   // 注意: 这是 *实验性* 语法。该语法需要babel的插件来实现所以浏览器里无法查看效果
+        //   // 详见: https://babeljs.io/docs/en/babel-plugin-transform-class-properties/
+        //   console.log('handleClick2')
+        //   console.log('this is:', this)
+        // }
+        render() {
+          return (
+            <div>
+              <h1>{this.state.isToggleOn ? '开' : '关'}</h1>
+              <button onClick={this.handlerClick}> 改变状态</button>
+            </div>
+          )
+        }
+      }
+      ReactDOM.render(
+        <div>
+          <Toggle />
+        </div>,
+        document.getElementById('root'),
+      )
+    </script>
+  </body>
+</html>

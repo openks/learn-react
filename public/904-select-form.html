@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/react@16.12.0/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      class NamedForm extends React.Component {
+        constructor(props) {
+          super(props)
+          this.state = { value: '' }
+          this.handleChange = this.handleChange.bind(this)
+          this.handlerSubmit = this.handlerSubmit.bind(this)
+        }
+        handleChange(event) {
+          const target = event.target
+           this.setState({
+              value: target.value,
+            })
+        }
+        handlerSubmit(e) {
+          console.log('提交的数据是', this.state.value)
+          e.preventDefault()
+        }
+        render() {
+          return (
+            <form onSubmit={this.handlerSubmit}>
+              <label>
+                选择水果：单选
+                <select
+                  value={this.state.value}
+                  onChange={this.handleChange}>
+                  <option value="grapefruit">葡萄柚</option>
+                  <option value="lime">酸橙</option>
+                  <option value="coconut">椰子</option>
+                  <option value="mango">芒果</option>
+                </select>
+              </label>
+              <input type="submit" value="提交" />
+            </form>
+          )
+        }
+      }
+      ReactDOM.render(
+        <div>
+          <NamedForm />
+        </div>,
+        document.getElementById('root'),
+      )
+    </script>
+  </body>
+</html>

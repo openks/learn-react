@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>状态提升</title>
+    <script src="https://unpkg.com/react@16.12.0/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      function toRMB(number) {
+        return number * 8
+      }
+      function toUSD(number) {
+        return number / 8
+      }
+      function tryConvert(number, convert) {
+        const input = parseFloat(number)
+        if (Number.isNaN(input)) {
+          return ''
+        }
+        const output = convert(input)
+        const rounded = Math.round(output * 1000) / 1000
+        // console.log('from:', number, ' to:', rounded)
+        return rounded.toString()
+      }
+      class MoneyChangeBox extends React.Component {
+        constructor(props) {
+          super(props)
+          this.state = {
+            type: 'RMB',
+            number: '',
+          }
+          this.changeToUSD = this.changeToUSD.bind(this)
+          this.changeToRMB = this.changeToRMB.bind(this)
+        }
+        changeToRMB(number) {
+          this.setState({
+            type: 'RMB',
+            number: number,
+          })
+        }
+        changeToUSD(number) {
+          this.setState({
+            type: 'USD',
+            number: number,
+          })
+        }
+        render() {
+          const number = this.state.number
+          const type = this.state.type
+          //   console.log('当前数字是:', number, '当前类型是:', type)
+          const RMB = type === 'RMB' ? number : tryConvert(number, toRMB)
+          const USD = type === 'USD' ? number : tryConvert(number, toUSD)
+          //   console.log('RMB:', RMB, 'USD:', USD)
+          return (
+            <div>
+              <span>假定1美元兑换8人民币</span>
+              <br />
+              人民币：
+              <MoneyInput number={RMB} onMoneyChange={this.changeToRMB} />
+              <br />
+              美元：
+              <MoneyInput number={USD} onMoneyChange={this.changeToUSD} />
+              <div>多个组件(MoneyInput)需要反映相同的变化数据，这时我们建议将共享状态提升到最近的共同父组件(MoneyChangeBox)中去</div>
+            </div>
+          )
+        }
+      }
+      class MoneyInput extends React.Component {
+        constructor(props) {
+          super(props)
+          this.onChange = this.onChange.bind(this)
+        }
+        onChange(e) {
+          this.props.onMoneyChange(e.target.value)
+        }
+        render() {
+          const number = this.props.number
+          return <input value={number} onChange={this.onChange} />
+        }
+      }
+      ReactDOM.render(<MoneyChangeBox />, document.getElementById('root'))
+    </script>
+  </body>
+</html>

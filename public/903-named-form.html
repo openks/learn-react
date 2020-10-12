@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/react@16.12.0/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      class NamedForm extends React.Component {
+        constructor(props) {
+          super(props)
+          this.state = { value: '' }
+          this.handlerChange = this.handlerChange.bind(this)
+          this.handlerSubmit = this.handlerSubmit.bind(this)
+        }
+        handlerChange(event) {
+          // event.persist() //若在函数里使用event则不可少,否则合成事件会被置为null
+          // Warning: This synthetic event is reused for performance reasons.
+          // If you're seeing this, you're accessing the property `target` on a released/nullified synthetic event.
+          // This is set to null. If you must keep the original synthetic event around, use event.persist().
+          // See https://fb.me/react-event-pooling for more information.
+          const target = event.target
+          console.log('target', target)
+          this.setState((state) => ({ value: target.value })) //可以用变量接收
+          // this.setState((state) => ({ value: event.target.value }))//这里event已经被置为null了
+
+          // 注意此处写法，直接设置值是可以的,如果用函数的话是不行的,因为合成事件会被置为null
+          // this.setState({ value: event.target.value })//也可以使用直接设置值的方式
+        }
+        handlerSubmit(e) {
+          console.log('提交的数据是', this.state.value)
+          e.preventDefault()
+        }
+        render() {
+          return (
+            <form onSubmit={this.handlerSubmit}>
+              <label>
+                名字
+                <input
+                  type="text"
+                  value={this.state.value}
+                  onChange={this.handlerChange}
+                />
+              </label>
+              <input type="submit" value="提交" />
+            </form>
+          )
+        }
+      }
+      ReactDOM.render(
+        <div>
+          <NamedForm />
+        </div>,
+        document.getElementById('root'),
+      )
+    </script>
+  </body>
+</html>

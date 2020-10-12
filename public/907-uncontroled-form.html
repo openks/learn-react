@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>非受控组件</title>
+    <script src="https://unpkg.com/react@16.12.0/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      class NameForm extends React.Component {
+        constructor(props) {
+          super(props)
+          this.handleSubmit = this.handleSubmit.bind(this)
+          this.input = React.createRef()
+          this.input2 = React.createRef()
+        }
+
+        handleSubmit(event) {
+          console.log(this.input.current.value)
+          console.log(this.input2.current.value)
+          //通过this.input.current获取当前ref指向的DOM节点,节点相关属性均可获取
+          alert('A name was submitted: ' + this.input.current.value)
+          event.preventDefault()
+        }
+
+        render() {
+          return (
+            <form onSubmit={this.handleSubmit}>
+              <label>
+                Name:
+                <input type="text" ref={this.input} />
+                <input type="text" ref={this.input2} />
+              </label>
+              <input type="submit" value="Submit" />
+              非受控组件例子
+            </form>
+          )
+        }
+      }
+      ReactDOM.render(
+        <div>
+          <NameForm />
+        </div>,
+        document.getElementById('root'),
+      )
+    </script>
+  </body>
+</html>
