@@ -4,8 +4,8 @@
 
 ## public文件夹内文件说明
 
-[801_背景颜色和背景图片填充范围](https://openks.github.io/learn-react/public/801-box.html)  
-[802_vue生命周期](./802-vue-life-cycle.html)  
+[801_背景颜色和背景图片填充范围](./public/801-box.html)  
+[802_vue生命周期](./public/802-vue-life-cycle.html)  
 
 前段时间看了 react 的文档并按我自己理解画了如下两张图
 ![react组件创建方法](./public/img/2017-12-25_react_create_component.png)
