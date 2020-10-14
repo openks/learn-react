@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>vue生命周期</title>
+    <script
+        type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.min.js"
+    ></script>
+</head>
+
+<body>
+
+    <div id="app">
+        <p>{{ message }}</p>
+    </div>
+    <div class="tips">
+        <p>打开控制台查看效果</p>
+        <p>控制台手动修改 app.message="hahah" </p>
+        <p>控制台调用 app.$destroy() </p>
+    </div>
+
+    <script type="text/javascript">
+        var app = new Vue({
+            el: "#app",
+            data: {
+                message: "hello vue"
+            },
+            beforeCreate: function () {
+                console.log("beforeCreate", this.$data, this.$el, this.message)
+            },
+            created: function () {
+                console.log("created", this.$data, this.$el, this.message)
+            },
+            beforeMount: function () {
+                console.log("beforeMount", this.$data, this.$el, this.message)
+            },
+            mounted: function () {
+                console.log("mounted", this.$data, this.$el, this.message)
+            },
+            beforeUpdate: function () {
+                console.log("beforeUpdate", this.$data, this.$el, this.message)
+                debugger;
+            },
+            updated: function () {
+                console.log("updated", this.$data, this.$el, this.message)
+            },
+            beforeDestroy: function () {
+                console.log("beforeDestroy", this.$data, this.$el, this.message)
+            },
+            destroyed: function () {
+                console.log("destroyed", this.$data, this.$el, this.message)
+            }
+        })
+    </script>
+</body>
+
+</html>
