@@ -13,6 +13,9 @@ function DashBoard() {
     status = true
   }
   const [LoginStatus, setLoginStatus] = useState(status)
+  useEffect(()=>{
+      document.title="登录成功"
+  },[])
   useEffect(() => {
     if (!LoginStatus) {
       localStorage.removeItem('LoginStatus')

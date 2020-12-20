@@ -12,7 +12,8 @@ function Login() {
   const [LoginStatus, setLoginStatus] = useState(status)
   useEffect(() => {
     document.title = '登录页'
-  })
+    console.log('useEffect,title')
+  },[])
   useEffect(() => {
     localStorage.setItem('LoginStatus', LoginStatus)
     if (LoginStatus) {
