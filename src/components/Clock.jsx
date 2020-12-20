@@ -1,5 +1,9 @@
 import React from "react";
 
+/**
+ * 这是一个容器组件,拥有自己的内部状态
+ * 
+ */
 class Clock extends React.Component {
   constructor(props) {
     super(props);
