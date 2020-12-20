@@ -1,6 +1,9 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 
+/**
+ * 自定义Effect,根据入参获取新闻列表的数据,包括加载状态，查询条件，结果展示，错误展示，等逻辑
+ */
 const useHackerNewsApi = () => {
   const [data, setData] = useState({ hits: [] })
   const [search, setSearch] = useState('')

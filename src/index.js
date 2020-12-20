@@ -1,12 +1,7 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React from 'react'
+import ReactDOM from 'react-dom'
 
-import App from "./components/React-Router-Demo-Nested-Routing";
+import App from './App2'
 
-const rootElement = document.getElementById("root");
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  rootElement
-);
+const rootElement = document.getElementById('root')
+ReactDOM.render(<App />, rootElement)
