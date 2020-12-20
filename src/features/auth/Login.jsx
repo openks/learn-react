@@ -7,8 +7,6 @@ function Login() {
   let history = useHistory()
   const LoginObj = useSelector((state) => state.login)
   const dispatch = useDispatch()
-  // console.log('LoginObj:', LoginObj)
-  // console.log(counterSlice.actions.increment()),
     useEffect(() => {
       document.title = '登录页'
       console.log('useEffect,title')
